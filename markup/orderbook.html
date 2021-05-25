@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Криптовалюты в реальном времени</title>
+</head>
+<body>
+    <div id="root">
+        <header class="header container">
+            <nav class="header__navigation">
+                <div class="trading">
+                        <div class="trading__pair pair">
+                            <h2 class="pair__title">BTCUSDT</h2>
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="pair__arrow-menu"><path d="M15.5 10.29v1.75L12 15.75l-3.5-3.71v-1.75h7z" fill="#76808F"></path></svg>
+                            <div class="pair__menu">
+                                <button class="pair__item" disabled title="BTCUSDT">BTCUSDT</button>
+                                <button class="pair__item" title="BTCUSDT">BTCUSDT</button>
+                                <button class="pair__item" title="BTCUSDT">BTCUSDT</button>
+                            </div>
+                        </div>
+                    <div class="trading__ticker ticker trading__ticker--red">
+                        <p class="ticker__title">---</p>
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="ticker__arrow-icon"><path d="M5 13.47l1.41-1.41 5.1 5.1V3h1.99v14.15l5.09-5.09L20 13.47l-7.5 7.5-7.5-7.5z" fill="currentColor"></path></svg>
+                    </div>
+                </div>
+
+                <ul class="site-navigation">
+                    <li class="site-navigation__item">
+                        <a href="#" class="site-navigation__link site-navigation__link--active">
+                            Биржевой стакан
+                        </a>
+                    </li>
+                    <li class="site-navigation__item">
+                        <a href="#" class="site-navigation__link">
+                            Сделки
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main container">
+            <h1 class="visually-hidden">Торги пары BTCUSDT</h1>
+            <section class="orderbook">
+                <div class="orderlist">
+                    <ul class="orderlist-header">
+                        <li class="orderlist-header__item">
+                            <p class="orderlist-header__title">Размер(BTC)</p>
+                        </li>
+
+                        <li class="orderlist-header__item">
+                            <p class="orderlist-header__title">Цена(USDT)</p>
+                        </li>
+
+                        <li class="orderlist-header__item">
+                            <p class="orderlist-header__title">Сумма(USDT)</p>
+                        </li>
+                    </ul>
+                    <div class="orderlist__container">
+                        <ul class="orderlist__row">
+                            <li class="orderlist___item">
+                                <p class="orderlist___value">0.039</p>
+                            </li>
+
+                            <li class="orderlist___item">
+                                <p class="orderlist___value">36863.54</p>
+                            </li>
+
+                            <li class="orderlist___item">
+                                <p class="orderlist___value">1437.67</p>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="orderlist">
+                  <ul class="orderlist-header">
+                      <li class="orderlist-header__item">
+                          <p class="orderlist-header__title">Размер(BTC)</p>
+                      </li>
+
+                      <li class="orderlist-header__item">
+                          <p class="orderlist-header__title">Цена(USDT)</p>
+                      </li>
+
+                      <li class="orderlist-header__item">
+                          <p class="orderlist-header__title">Сумма(USDT)</p>
+                      </li>
+                  </ul>
+                  <div class="orderlist__container">
+                      <ul class="orderlist__row">
+
+                          <li class="orderlist___item">
+                              <p class="orderlist___value">0.039</p>
+                          </li>
+
+                          <li class="orderlist___item">
+                              <p class="orderlist___value">36863.54</p>
+                          </li>
+
+                          <li class="orderlist___item">
+                              <p class="orderlist___value">1437.67</p>
+                          </li>
+                      </ul>
+                  </div>
+              </div>
+
+            </section>
+        </main>
+    </div>
+</body>
+</html>
