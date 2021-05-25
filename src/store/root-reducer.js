@@ -2,7 +2,7 @@ import {ActionTypes} from '../store/types';
 import {Pair} from '../const';
 
 const initialState = {
-  pair: Pair.BTCUSDT.name,
+  pair: Pair.BTCUSDT,
 };
 
 const rootReducer = (state = initialState, action) => {

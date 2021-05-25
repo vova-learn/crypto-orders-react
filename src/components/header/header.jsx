@@ -1,13 +1,17 @@
 import React from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
+import {getPair} from '../../store/selectors';
 
-const Header = () => {
+
+const Header = ({pair}) => {
   return (
     <header className="header container">
       <nav className="header__navigation">
         <div className="trading">
           <div className="trading__pair pair">
-            <h2 className="pair__title">BTCUSDT</h2>
-            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="pair__arrow-menu"><path d="M15.5 10.29v1.75L12 15.75l-3.5-3.71v-1.75h7z" fill="#76808F" /></svg>
+            <h2 className="pair__title">{pair.name.toUpperCase()}</h2>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="pair__arrow"><path d="M15.5 10.29v1.75L12 15.75l-3.5-3.71v-1.75h7z" fill="#76808F" /></svg>
             <div className="pair__menu">
               <button className="pair__item" disabled title="BTCUSDT">BTCUSDT</button>
               <button className="pair__item" title="BTCUSDT">BTCUSDT</button>
@@ -36,4 +40,13 @@ const Header = () => {
   );
 };
 
-export default Header;
+Header.propTypes = {
+  pair: PropTypes.string.isRequired,
+};
+const mapStateToProps = (state) => {
+  return {
+    pair: getPair(state),
+  };
+};
+
+export default connect(mapStateToProps, null)(Header);
