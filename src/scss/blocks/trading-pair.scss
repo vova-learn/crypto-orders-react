@@ -1,0 +1,8 @@
+.trading__pair {
+  position: relative;
+  display: flex;
+
+  &:hover .pair__menu {
+    display: flex;
+  }
+}

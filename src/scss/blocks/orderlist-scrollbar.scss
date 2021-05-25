@@ -1,0 +1,15 @@
+.orderlist {
+    &__container::-webkit-scrollbar {
+    width: 2px;
+    background-color: $background-block-color;
+  }
+
+  &__container::-webkit-scrollbar-button {
+    height: 0px;
+  }
+
+  &__container:hover::-webkit-scrollbar-thumb {
+    border-radius: 2px;
+    background-color: $basic-bright;
+  }
+}

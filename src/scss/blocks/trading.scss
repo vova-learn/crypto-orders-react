@@ -1,0 +1,44 @@
+.trading {
+  display: flex;
+  align-items: center;
+
+  @media (max-width: $screen-sm) {
+    margin-top: 15px;
+  }
+
+  &__pair {
+    margin: 0;
+    padding-bottom: 5px;
+  }
+
+  &__ticker {
+    display: flex;
+    margin: 0;
+    padding-left: 15px;
+    transition: color $transition-timer ease;
+
+    &__arrow-icon {
+      display: none;
+    }
+
+    &--green {
+      color: $ticker-buy-color;
+    }
+
+    &--red {
+      color: $ticker-sale-color;
+    }
+
+    &--green .ticker__arrow-icon {
+      display: block;
+      transform: rotate(180deg);
+      width: 16px;
+    }
+
+    &--red .ticker__arrow-icon {
+      display: block;
+      width: 16px;
+    }
+  }
+}
+

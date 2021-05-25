@@ -1,0 +1,14 @@
+.ticker {
+  &__title {
+    font-size: 18px;
+
+    @media (max-width: $screen-sm) {
+      font-size: 15px;
+    }
+
+    @media (min-width: $screen-lg) {
+      font-size: 22px;
+    }
+  }
+}
+

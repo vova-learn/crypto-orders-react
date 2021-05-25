@@ -1,0 +1,16 @@
+.header {
+  width: 100%;
+  margin: 0;
+
+  &__navigation {
+    display: flex;
+    justify-content: space-between;
+    margin: 25px 0;
+    background-color: $background-block-color;
+    padding: 0 15px;
+
+    @media (max-width: $screen-sm) {
+      flex-direction: column;
+    }
+  }
+}
