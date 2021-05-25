@@ -2,9 +2,33 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 import {getPair} from '../../store/selectors';
+import {Pair} from '../../const';
+import {ActionCreator} from '../../store/actions';
 
+const Header = ({pair, onChangePair}) => {
+  const pairs = Object.values(Pair);
 
-const Header = ({pair}) => {
+  const handlePairNameClick = ({currentTarget}) => {
+    onChangePair(Pair[currentTarget.name]);
+  };
+
+  const getPairButtonJsx = (pairName, activePair) => {
+    const isActivePair = pairName === activePair.name ? true : false;
+    pairName = pairName.toUpperCase();
+
+    return (
+      <button
+        className="pair__item"
+        disabled={isActivePair}
+        title={pairName}
+        name={pairName}
+        onClick={handlePairNameClick}
+      >
+        {pairName}
+      </button>
+    );
+  };
+
   return (
     <header className="header container">
       <nav className="header__navigation">
@@ -13,9 +37,11 @@ const Header = ({pair}) => {
             <h2 className="pair__title">{pair.name.toUpperCase()}</h2>
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" className="pair__arrow"><path d="M15.5 10.29v1.75L12 15.75l-3.5-3.71v-1.75h7z" fill="#76808F" /></svg>
             <div className="pair__menu">
-              <button className="pair__item" disabled title="BTCUSDT">BTCUSDT</button>
-              <button className="pair__item" title="BTCUSDT">BTCUSDT</button>
-              <button className="pair__item" title="BTCUSDT">BTCUSDT</button>
+
+              {pairs.map((item) => (
+                getPairButtonJsx(item.name, pair)
+              ))}
+
             </div>
           </div>
           <div className="trading__ticker ticker trading__ticker--red">
@@ -42,11 +68,21 @@ const Header = ({pair}) => {
 
 Header.propTypes = {
   pair: PropTypes.string.isRequired,
+  onChangePair: PropTypes.func.isRequired,
 };
+
 const mapStateToProps = (state) => {
   return {
     pair: getPair(state),
   };
 };
 
-export default connect(mapStateToProps, null)(Header);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangePair: (pair) => {
+      dispatch(ActionCreator.changePair(pair));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
