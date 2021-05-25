@@ -1,3 +1,5 @@
+import '../../scss/style.scss';
+
 import React from 'react';
 import OrderbookScreen from '../orderbook-screen/orderbook-screen';
 
