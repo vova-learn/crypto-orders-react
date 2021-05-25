@@ -9,6 +9,10 @@ const root = document.getElementById(`root`);
 const store = createStore(rootReducer);
 window.s = store;
 
+window.log = (text) => {
+  return console.log(text); // eslint-disable-line no-console
+};
+
 ReactDOM.render(
     <App />,
     root
