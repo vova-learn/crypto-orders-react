@@ -46,6 +46,14 @@
     margin: 0;
     padding: 5px 0;
 
+    &--red {
+      color: $ticker-sale-color;
+    }
+
+    &--green {
+      color: $ticker-buy-color;
+    }
+
     @media (max-width: $screen-sm) {
       font-size: 8px;
     }

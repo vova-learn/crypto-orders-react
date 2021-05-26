@@ -4,6 +4,8 @@ export const TickerPrice = {
 
 export const FixedPrice = {
   MONEY: 2,
+  TOTAL: 4,
+  AMOUNT: 6,
   CRYPTO: 7,
 };
 

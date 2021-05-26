@@ -1,7 +1,21 @@
 import React from 'react';
-import Header from '../header/header';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-const OrderbookScreen = () => {
+import {fetchOrderbook} from '../../store/api-action';
+import {getTicker, getOrderbook, getLoadOrderbookStatus} from '../../store/selectors';
+import {propTicker} from '../../props-validation';
+
+import Header from '../header/header';
+import Orderlist from './../orderlist/orderlist';
+
+const OrderbookScreen = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook}) => {
+  if (!isLoadOrderbook) {
+    onLoadOrderbook(ticker.symbol);
+  }
+
+  const {asks, bids} = orderbook;
+
   return (
     <>
       <Header />
@@ -9,62 +23,40 @@ const OrderbookScreen = () => {
       <main className="main container">
         <h1 className="visually-hidden">Торги пары BTCUSDT</h1>
         <section className="orderbook">
-          <div className="orderlist">
-            <ul className="orderlist-header">
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Размер(BTC)</p>
-              </li>
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Цена(USDT)</p>
-              </li>
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Сумма(USDT)</p>
-              </li>
-            </ul>
-            <div className="orderlist__container">
-              <ul className="orderlist__row">
-                <li className="orderlist___item">
-                  <p className="orderlist___value">0.039</p>
-                </li>
-                <li className="orderlist___item">
-                  <p className="orderlist___value">36863.54</p>
-                </li>
-                <li className="orderlist___item">
-                  <p className="orderlist___value">1437.67</p>
-                </li>
-              </ul>
-            </div>
-          </div>
-          <div className="orderlist">
-            <ul className="orderlist-header">
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Размер(BTC)</p>
-              </li>
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Цена(USDT)</p>
-              </li>
-              <li className="orderlist-header__item">
-                <p className="orderlist-header__title">Сумма(USDT)</p>
-              </li>
-            </ul>
-            <div className="orderlist__container">
-              <ul className="orderlist__row">
-                <li className="orderlist___item">
-                  <p className="orderlist___value">0.039</p>
-                </li>
-                <li className="orderlist___item">
-                  <p className="orderlist___value">36863.54</p>
-                </li>
-                <li className="orderlist___item">
-                  <p className="orderlist___value">1437.67</p>
-                </li>
-              </ul>
-            </div>
-          </div>
+
+          <Orderlist ticker={ticker} bids={bids} isBids isLoadOrderbook={isLoadOrderbook} />
+
+          <Orderlist ticker={ticker} asks={asks} isAsks isLoadOrderbook={isLoadOrderbook} />
+
         </section>
       </main>
     </>
   );
 };
 
-export default OrderbookScreen;
+OrderbookScreen.propTypes = {
+  ticker: PropTypes.shape(propTicker).isRequired,
+  orderbook: PropTypes.shape(
+      PropTypes.array.isRequired,
+  ).isRequired,
+  onLoadOrderbook: PropTypes.func.isRequired,
+  isLoadOrderbook: PropTypes.bool.isRequired,
+};
+
+const mapStateToProps = (state) => {
+  return {
+    ticker: getTicker(state),
+    orderbook: getOrderbook(state),
+    isLoadOrderbook: getLoadOrderbookStatus(state),
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoadOrderbook: (symbol) => {
+      dispatch(fetchOrderbook(symbol));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(OrderbookScreen);
