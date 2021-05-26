@@ -1,19 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import {Provider} from 'react-redux';
-import {createStore} from 'redux';
-import App from './components/app/app';
+import {applyMiddleware, createStore} from 'redux';
+import thunk from 'redux-thunk';
+import {createAPI} from './api/api';
 import rootReducer from './store/root-reducer';
+import App from './components/app/app';
+
+const api = createAPI();
+const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(api)));
 
 const root = document.getElementById(`root`);
-
-const store = createStore(rootReducer);
-window.s = store;
-
-window.log = (text) => {
-  return console.log(text); // eslint-disable-line no-console
-};
-
 ReactDOM.render(
     <Provider store={store}>
       <App />
@@ -21,3 +18,9 @@ ReactDOM.render(
     ,
     root
 );
+
+window.log = (text) => {
+  return console.log(text); // eslint-disable-line no-console
+};
+
+window.s = store;
