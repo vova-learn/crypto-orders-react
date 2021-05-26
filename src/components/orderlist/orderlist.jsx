@@ -2,8 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Orderitem from '../orderitem/orderitem';
 import {propTicker} from '../../props-validation';
+import Spinner from '../spinner/spinner';
 
-const Orderlist = ({ticker, bids, asks, isBids, isAsks}) => {
+const Orderlist = ({ticker, bids, asks, isBids, isAsks, isLoadOrderbook}) => {
   const {symbols} = ticker;
 
   return (
@@ -21,7 +22,8 @@ const Orderlist = ({ticker, bids, asks, isBids, isAsks}) => {
       </ul>
       <div className="orderlist__container">
 
-        <Orderitem orders={bids.length ? bids : asks} isBids={isBids} isAsks={isAsks} />
+        {!isLoadOrderbook && <Spinner />}
+        {isLoadOrderbook && <Orderitem orders={bids.length ? bids : asks} isBids={isBids} isAsks={isAsks} />}
 
       </div>
     </div>
