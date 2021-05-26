@@ -5,6 +5,7 @@ import {getTicker, getTickers} from '../../store/selectors';
 import {ActionCreator} from '../../store/actions';
 import Ticker from '../ticker/ticker';
 import {propTicker} from '../../props-validation';
+import PriceTicker from '../price-ticker/price-ticker';
 
 const Header = ({ticker, tickers, onChangeTicker}) => {
 
@@ -13,6 +14,9 @@ const Header = ({ticker, tickers, onChangeTicker}) => {
       <nav className="header__navigation">
         <div className="trading">
           <Ticker ticker={ticker} tickers={tickers} onChangeTicker={onChangeTicker}/>
+
+          <PriceTicker ticker={ticker} />
+
         </div>
         <ul className="site-navigation">
           <li className="site-navigation__item">
