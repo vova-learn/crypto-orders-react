@@ -8,12 +8,20 @@ const DefaultTicker = {
 const initialState = {
   ticker: DefaultTicker.BTCUSDT,
   tickers,
+  orderbook: {},
+  isLoadOrderbook: false,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
     case ActionTypes.CHANGE_TICKER:
-      return {...state, ticker: action.payload};
+      return {...state, ticker: action.payload, isLoadOrderbook: false};
+    case ActionTypes.LOAD_ORDERBOOK:
+      const orderbook = {
+        asks: action.payload.asks,
+        bids: action.payload.bids,
+      };
+      return {...state, orderbook, isLoadOrderbook: true};
     default:
       return {...state};
   }

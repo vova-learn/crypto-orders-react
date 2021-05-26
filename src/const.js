@@ -13,4 +13,15 @@ export const WSUrl = {
 
 export const WSRoute = {
   TRADE: `@trade`,
+  DEPTH: `@depth`,
+};
+
+export const ApiRoute = {
+  DEPTH: `/depth`,
+};
+
+export const ApiLimit = {
+  TEN: 10,
+  FIVE_HUNDRED: 500,
+  ONE_THOUSAND: 1000,
 };
