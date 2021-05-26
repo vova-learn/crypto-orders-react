@@ -1,14 +1,19 @@
 import {ActionTypes} from '../store/types';
-import {Pair} from '../const';
+import {tickers} from './../mocks/data';
+
+const DefaultTicker = {
+  BTCUSDT: tickers[0],
+};
 
 const initialState = {
-  pair: Pair.BTCUSDT,
+  ticker: DefaultTicker.BTCUSDT,
+  tickers,
 };
 
 const rootReducer = (state = initialState, action) => {
   switch (action.type) {
-    case ActionTypes.CHANGE_PAIR:
-      return {...state, pair: action.payload};
+    case ActionTypes.CHANGE_TICKER:
+      return {...state, ticker: action.payload};
     default:
       return {...state};
   }
