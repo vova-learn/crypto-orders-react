@@ -15,11 +15,7 @@
     display: flex;
     margin: 0;
     padding-left: 15px;
-    transition: color $transition-timer ease;
-
-    &__arrow-icon {
-      display: none;
-    }
+    // transition: color $transition-timer ease;
 
     &--green {
       color: $ticker-buy-color;
@@ -41,4 +37,3 @@
     }
   }
 }
-
