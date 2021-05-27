@@ -31,3 +31,9 @@ export const ApiLimit = {
   FIVE_HUNDRED: 500,
   ONE_THOUSAND: 1000,
 };
+
+export const AppRoute = {
+  HOME: `/`,
+  ORDERBOOK: `/orderbook`,
+  TRADES: `/trades`,
+};

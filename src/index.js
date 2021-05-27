@@ -6,6 +6,7 @@ import thunk from 'redux-thunk';
 import {createAPI} from './api/api';
 import rootReducer from './store/root-reducer';
 import App from './components/app/app';
+import {BrowserRouter} from 'react-router-dom';
 
 const api = createAPI();
 const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(api)));
@@ -13,7 +14,9 @@ const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(a
 const root = document.getElementById(`root`);
 ReactDOM.render(
     <Provider store={store}>
-      <App />
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
     </Provider>
     ,
     root
