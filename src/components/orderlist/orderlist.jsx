@@ -4,14 +4,14 @@ import Orderitem from '../orderitem/orderitem';
 import {propTicker} from '../../props-validation';
 import Spinner from '../spinner/spinner';
 
-const Orderlist = ({ticker, bids, asks, isBids, isAsks, isLoadOrderbook}) => {
+const Orderlist = ({ticker, orders, isBids, isAsks, isLoadOrderbook}) => {
   const {symbols} = ticker;
 
   return (
     <div className="orderlist">
       <ul className="orderlist-header">
         <li className="orderlist-header__item">
-          <p className="orderlist-header__title">Размер({symbols[0]})</p>
+          <p className="orderlist-header__title">Количество({symbols[0]})</p>
         </li>
         <li className="orderlist-header__item">
           <p className="orderlist-header__title">Цена({symbols[1]})</p>
@@ -23,7 +23,7 @@ const Orderlist = ({ticker, bids, asks, isBids, isAsks, isLoadOrderbook}) => {
       <div className="orderlist__container">
 
         {!isLoadOrderbook && <Spinner />}
-        {isLoadOrderbook && <Orderitem orders={bids.length ? bids : asks} isBids={isBids} isAsks={isAsks} />}
+        {isLoadOrderbook && <Orderitem orders={orders} isBids={isBids} isAsks={isAsks} />}
 
       </div>
     </div>
@@ -31,16 +31,13 @@ const Orderlist = ({ticker, bids, asks, isBids, isAsks, isLoadOrderbook}) => {
 };
 
 Orderlist.defaultProps = {
-  bids: [],
-  asks: [],
   isBids: false,
   isAsks: false,
 };
 
 Orderlist.propTypes = {
   ticker: PropTypes.shape(propTicker).isRequired,
-  bids: PropTypes.array,
-  asks: PropTypes.array,
+  orders: PropTypes.array,
   isBids: PropTypes.bool,
   isAsks: PropTypes.bool,
   isLoadOrderbook: PropTypes.bool.isRequired,
