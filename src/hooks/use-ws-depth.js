@@ -1,5 +1,5 @@
 import {useState} from "react";
-import {WSRoute, WSUrl} from "../const";
+import {WSRoute, WSTime, WSUrl} from "../const";
 
 const DEPTH_AMOUNT = 5;
 
@@ -10,7 +10,7 @@ const useWSDepth = () => {
 
   const connectWSDepth = ({symbol}) => {
     symbol = symbol.toLowerCase();
-    wsDepth = new WebSocket(`${WSUrl.STREAM}${symbol}${WSRoute.DEPTH}${DEPTH_AMOUNT}`);
+    wsDepth = new WebSocket(`${WSUrl.STREAM}${symbol}${WSRoute.DEPTH}${DEPTH_AMOUNT}${WSTime.MAX}`);
 
     wsDepth.onmessage = ({data}) => {
       const orderbookData = JSON.parse(data);

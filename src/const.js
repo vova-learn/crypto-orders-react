@@ -17,6 +17,10 @@ export const WSRoute = {
   TRADE: `@trade`,
   DEPTH: `@depth`,
 };
+export const WSTime = {
+  MIN: `@100ms`,
+  MAX: `@1000ms`,
+};
 
 export const ApiRoute = {
   DEPTH: `/depth`,
