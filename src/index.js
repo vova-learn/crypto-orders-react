@@ -7,9 +7,13 @@ import {createAPI} from './api/api';
 import rootReducer from './store/root-reducer';
 import App from './components/app/app';
 import {BrowserRouter} from 'react-router-dom';
+import {composeWithDevTools} from 'redux-devtools-extension';
 
 const api = createAPI();
-const store = createStore(rootReducer, applyMiddleware(thunk.withExtraArgument(api)));
+const store = createStore(
+    rootReducer,
+    composeWithDevTools(applyMiddleware(thunk.withExtraArgument(api)))
+);
 
 const root = document.getElementById(`root`);
 ReactDOM.render(
@@ -21,9 +25,3 @@ ReactDOM.render(
     ,
     root
 );
-
-window.log = (text) => {
-  return console.log(text); // eslint-disable-line no-console
-};
-
-window.s = store;
