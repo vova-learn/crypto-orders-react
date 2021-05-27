@@ -5,6 +5,7 @@ import OrderbookScreen from '../orderbook-screen/orderbook-screen';
 import {AppRoute} from '../../const';
 import {Redirect, Route, Switch} from 'react-router';
 import TradesScreen from '../trades-screen/trades-screen';
+import NotFoundScreen from '../not-found-screen/not-found-screen';
 
 const App = () => {
   return (
@@ -17,6 +18,9 @@ const App = () => {
       </Route>
       <Route exact path={AppRoute.TRADES}>
         <TradesScreen />
+      </Route>
+      <Route>
+        <NotFoundScreen />
       </Route>
     </Switch>
   );
