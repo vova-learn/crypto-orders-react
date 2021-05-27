@@ -44,9 +44,9 @@ const Orderbook = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook, onAddOr
       <h1 className="visually-hidden">Торги пары {symbol}</h1>
       <section className="orderbook">
 
-        <Orderlist ticker={ticker} bids={bids} isBids isLoadOrderbook={isLoadOrderbook} />
+        <Orderlist ticker={ticker} orders={bids} isBids isLoadOrderbook={isLoadOrderbook} />
 
-        <Orderlist ticker={ticker} asks={asks} isAsks isLoadOrderbook={isLoadOrderbook} />
+        <Orderlist ticker={ticker} orders={asks} isAsks isLoadOrderbook={isLoadOrderbook} />
 
       </section>
     </main>
