@@ -6,9 +6,10 @@ import {ActionCreator} from '../../store/actions';
 import Ticker from '../ticker/ticker';
 import {propTicker} from '../../props-validation';
 import PriceTicker from '../price-ticker/price-ticker';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
-const Header = ({ticker, tickers, onChangeTicker}) => {
-
+const Header = ({ticker, tickers, isOrderbook, isTrades, onChangeTicker}) => {
   return (
     <header className="header container">
       <nav className="header__navigation">
@@ -20,14 +21,14 @@ const Header = ({ticker, tickers, onChangeTicker}) => {
         </div>
         <ul className="site-navigation">
           <li className="site-navigation__item">
-            <a href="#" className="site-navigation__link site-navigation__link--active">
+            <Link to={AppRoute.ORDERBOOK} className={`site-navigation__link ${isOrderbook && `site-navigation__link--active`}`}>
                 Биржевой стакан
-            </a>
+            </Link>
           </li>
           <li className="site-navigation__item">
-            <a href="#" className="site-navigation__link">
+            <Link to={AppRoute.TRADES} className={`site-navigation__link ${isTrades && `site-navigation__link--active`}`}>
                 Сделки
-            </a>
+            </Link>
           </li>
         </ul>
       </nav>
@@ -35,11 +36,18 @@ const Header = ({ticker, tickers, onChangeTicker}) => {
   );
 };
 
+Header.defaultProps = {
+  isOrderbook: false,
+  isTrades: false,
+};
+
 Header.propTypes = {
   ticker: PropTypes.shape(propTicker).isRequired,
   tickers: PropTypes.arrayOf(
       PropTypes.shape(propTicker).isRequired
   ).isRequired,
+  isOrderbook: PropTypes.bool,
+  isTrades: PropTypes.bool,
   onChangeTicker: PropTypes.func.isRequired,
 };
 

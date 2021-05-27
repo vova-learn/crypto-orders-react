@@ -5,11 +5,8 @@ import Ordebook from './../orderbook/orderbook';
 const OrderbookScreen = () => {
   return (
     <>
-
-      <Header />
-
+      <Header isOrderbook />
       <Ordebook />
-
     </>
   );
 };
