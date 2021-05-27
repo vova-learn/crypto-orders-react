@@ -26,6 +26,7 @@ const PriceTicker = ({ticker}) => {
     }
   }, [ticker]);
 
+  prevPrice = tickerPrice === TickerPrice.DEFAULT ? TickerPrice.DEFAULT : prevPrice;
   const isBuy = tickerPrice > prevPrice ? `trading__ticker--green` : ``;
   const isSale = tickerPrice < prevPrice ? `trading__ticker--red` : ``;
   prevPrice = tickerPrice;
