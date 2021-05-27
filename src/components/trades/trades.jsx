@@ -6,6 +6,8 @@ import {getTicker, getOrderbook, getLoadOrderbookStatus} from '../../store/selec
 import {propTicker} from '../../props-validation';
 
 import Orderlist from './../orderlist/orderlist';
+import {Link} from 'react-router-dom';
+import {AppRoute} from '../../const';
 
 const Trades = ({ticker, orderbook, isLoadOrderbook}) => {
   const {symbol} = ticker;
@@ -30,6 +32,15 @@ const Trades = ({ticker, orderbook, isLoadOrderbook}) => {
       <section className="orderbook">
 
         {isLoadOrderbook && <Orderlist ticker={ticker} orders={orders} isLoadOrderbook />}
+
+        {!isLoadOrderbook &&
+          <div className="no-orders">
+            <h2 className="no-orders__title">Нет просмотренных сделок</h2>
+            <Link to={AppRoute.ORDERBOOK} className="no-orders__link">
+              <span>просмотреть сделки <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" className="no-orders__arrow-icon"><path d="M5 13.47l1.41-1.41 5.1 5.1V3h1.99v14.15l5.09-5.09L20 13.47l-7.5 7.5-7.5-7.5z" fill="currentColor"></path></svg></span>
+            </Link>
+          </div>
+        }
 
       </section>
     </main>

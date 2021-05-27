@@ -20,7 +20,7 @@
   }
 
   &__link {
-    color: #fafafa;
+    color: $basic-white-color;
     transition: opacity 0.2s ease;
     font-size: 15px;
 
@@ -30,11 +30,11 @@
   }
 
   &__link:hover {
-    color: #f0b90b;
+    color: $basic-bright;
     opacity: 0.3;
   }
   &__link--active {
-    color: #f0b90b;
+    color: $basic-bright;
   }
 
   &__link--active::after {
@@ -42,7 +42,7 @@
     display: block;
     height: 1px;
     width: 100%;
-    background-color: #f0b90b;
+    background-color: $basic-bright;
   }
 
   &__link--active:hover {

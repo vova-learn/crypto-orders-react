@@ -1,0 +1,29 @@
+.no-orders {
+  margin: 25px 0;
+  padding: 0 15px;
+
+  &__title {
+    color: $basic-bright;
+  }
+
+  &__link {
+    color: $basic-white-color;
+
+    &::after {
+      content: '';
+      display: block;
+      height: 1px;
+      width: 50%;
+      background-color: $basic-white-color;
+    }
+  }
+
+  &__arrow-icon {
+    color: $basic-white-color;
+    position: relative;
+    top: 2px;
+    margin-left: 3px;
+    height: 12px;
+    transform: rotate(-90deg);
+  }
+}
