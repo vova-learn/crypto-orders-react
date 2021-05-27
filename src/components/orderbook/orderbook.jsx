@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -7,12 +7,35 @@ import {getTicker, getOrderbook, getLoadOrderbookStatus} from '../../store/selec
 import {propTicker} from '../../props-validation';
 
 import Orderlist from './../orderlist/orderlist';
+import {ActionCreator} from '../../store/actions';
+import useWSDepth from '../../hooks/use-ws-depth';
 
-const Orderbook = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook}) => {
+const Orderbook = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook, onAddOrderbook}) => {
   const {symbol} = ticker;
-  if (!isLoadOrderbook) {
-    onLoadOrderbook(ticker.symbol);
-  }
+
+  const {
+    orderbookWS,
+    isWSDepthLoad,
+    connectWSDepth,
+    disconnectWSDepth,
+  } = useWSDepth();
+
+  useEffect(() => {
+    if (!isLoadOrderbook && !isWSDepthLoad) {
+      onLoadOrderbook(symbol);
+    } else if (!isLoadOrderbook && isWSDepthLoad) {
+      disconnectWSDepth();
+      onLoadOrderbook(symbol);
+    } else if (isLoadOrderbook && !isWSDepthLoad) {
+      connectWSDepth(ticker);
+    }
+  }, [isLoadOrderbook, isWSDepthLoad]);
+
+  useEffect(() => {
+    if (isLoadOrderbook && isWSDepthLoad) {
+      onAddOrderbook(orderbookWS);
+    }
+  }, [orderbookWS]);
 
   const {asks, bids} = orderbook;
 
@@ -38,6 +61,7 @@ Orderbook.propTypes = {
   ).isRequired,
   onLoadOrderbook: PropTypes.func.isRequired,
   isLoadOrderbook: PropTypes.bool.isRequired,
+  onAddOrderbook: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -52,7 +76,10 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onLoadOrderbook: (symbol) => {
       dispatch(fetchOrderbook(symbol));
-    }
+    },
+    onAddOrderbook: (orderbook) => {
+      dispatch(ActionCreator.addOrderbook(orderbook));
+    },
   };
 };
 

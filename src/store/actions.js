@@ -9,4 +9,8 @@ export const ActionCreator = {
     type: ActionTypes.LOAD_ORDERBOOK,
     payload: orderbook,
   }),
+  addOrderbook: (orderbook) => ({
+    type: ActionTypes.ADD_ORDERBOOK,
+    payload: orderbook,
+  }),
 };
