@@ -4,7 +4,7 @@ import Orderitem from '../orderitem/orderitem';
 import {propTicker} from '../../props-validation';
 import Spinner from '../spinner/spinner';
 
-const Orderlist = ({ticker, orders, isBids, isAsks, isLoadOrderbook}) => {
+const Orderlist = ({ticker, orders, isBids, isAsks, isOrdersLoad}) => {
   const {symbols} = ticker;
 
   return (
@@ -22,8 +22,8 @@ const Orderlist = ({ticker, orders, isBids, isAsks, isLoadOrderbook}) => {
       </ul>
       <div className="orderlist__container">
 
-        {!isLoadOrderbook && <Spinner />}
-        {isLoadOrderbook && <Orderitem orders={orders} isBids={isBids} isAsks={isAsks} />}
+        {!isOrdersLoad && <Spinner />}
+        {isOrdersLoad && <Orderitem orders={orders} isBids={isBids} isAsks={isAsks} />}
 
       </div>
     </div>
@@ -40,7 +40,7 @@ Orderlist.propTypes = {
   orders: PropTypes.array,
   isBids: PropTypes.bool,
   isAsks: PropTypes.bool,
-  isLoadOrderbook: PropTypes.bool.isRequired,
+  isOrdersLoad: PropTypes.bool.isRequired,
 };
 
 export default Orderlist;

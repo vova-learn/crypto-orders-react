@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -20,20 +20,24 @@ const Orderbook = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook, onAddOr
     disconnectWSDepth,
   } = useWSDepth();
 
+  const [isOrdersLoad, setOrdersLoadStatus] = useState(false);
+
   useEffect(() => {
     if (!isLoadOrderbook && !isWSDepthLoad) {
       onLoadOrderbook(symbol);
+      connectWSDepth(ticker);
     } else if (!isLoadOrderbook && isWSDepthLoad) {
+      setOrdersLoadStatus(false);
       disconnectWSDepth();
       onLoadOrderbook(symbol);
-    } else if (isLoadOrderbook && !isWSDepthLoad) {
-      connectWSDepth(ticker);
+    } else if (isLoadOrderbook && isWSDepthLoad) {
+      setOrdersLoadStatus(true);
     }
   }, [isLoadOrderbook, isWSDepthLoad]);
 
   useEffect(() => {
     if (isLoadOrderbook && isWSDepthLoad) {
-      onAddOrderbook(orderbookWS);
+      onAddOrderbook(orderbook, orderbookWS);
     }
   }, [orderbookWS]);
 
@@ -44,9 +48,9 @@ const Orderbook = ({ticker, orderbook, onLoadOrderbook, isLoadOrderbook, onAddOr
       <h1 className="visually-hidden">Торги пары {symbol}</h1>
       <section className="orderbook">
 
-        <Orderlist ticker={ticker} orders={bids} isBids isLoadOrderbook={isLoadOrderbook} />
+        <Orderlist ticker={ticker} orders={bids} isBids isOrdersLoad={isOrdersLoad} />
 
-        <Orderlist ticker={ticker} orders={asks} isAsks isLoadOrderbook={isLoadOrderbook} />
+        <Orderlist ticker={ticker} orders={asks} isAsks isOrdersLoad={isOrdersLoad} />
 
       </section>
     </main>
@@ -77,8 +81,8 @@ const mapDispatchToProps = (dispatch) => {
     onLoadOrderbook: (symbol) => {
       dispatch(fetchOrderbook(symbol));
     },
-    onAddOrderbook: (orderbook) => {
-      dispatch(ActionCreator.addOrderbook(orderbook));
+    onAddOrderbook: (orderbook, orderbookWS) => {
+      dispatch(ActionCreator.addOrderbook(orderbook, orderbookWS));
     },
   };
 };
