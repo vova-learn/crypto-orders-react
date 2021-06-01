@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -8,15 +8,18 @@ import {propTicker} from '../../props-validation';
 import Orderlist from './../orderlist/orderlist';
 import {Link} from 'react-router-dom';
 import {AppRoute} from '../../const';
+import {ActionCreator} from '../../store/actions';
 
-const Trades = ({ticker, orderbook, isLoadOrderbook}) => {
+const Trades = ({ticker, orderbook, isLoadOrderbook, onChangeLoadOrderbook}) => {
   const {symbol} = ticker;
 
-  const getOrders = () => {
-    if (!isLoadOrderbook) {
-      return false;
+  useEffect(() => {
+    if (isLoadOrderbook) {
+      onChangeLoadOrderbook(false);
     }
+  }, [isLoadOrderbook]);
 
+  const getOrders = () => {
     return orderbook.bids.reduce((acc, item, index) => {
       acc.push(item);
       acc.push(orderbook.asks[index]);
@@ -24,16 +27,16 @@ const Trades = ({ticker, orderbook, isLoadOrderbook}) => {
     }, []);
   };
 
-  const orders = getOrders();
+  const isOrderbookFull = !!Object.keys(orderbook).length;
 
   return (
     <main className="main container">
       <h1 className="visually-hidden">Сделки пары {symbol}</h1>
       <section className="orderbook">
 
-        {isLoadOrderbook && <Orderlist ticker={ticker} orders={orders} isLoadOrderbook />}
+        {isOrderbookFull && <Orderlist ticker={ticker} orders={getOrders()} isOrdersLoad />}
 
-        {!isLoadOrderbook &&
+        {!isOrderbookFull &&
           <div className="no-orders">
             <h2 className="no-orders__title">Нет просмотренных сделок</h2>
             <Link to={AppRoute.ORDERBOOK} className="no-orders__link">
@@ -54,6 +57,7 @@ Trades.propTypes = {
       PropTypes.array.isRequired,
   ).isRequired,
   isLoadOrderbook: PropTypes.bool.isRequired,
+  onChangeLoadOrderbook: PropTypes.func.isRequired,
 };
 
 const mapStateToProps = (state) => {
@@ -64,5 +68,13 @@ const mapStateToProps = (state) => {
   };
 };
 
-export default connect(mapStateToProps, null)(Trades);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onChangeLoadOrderbook: (isLoadOrderbook) => {
+      dispatch(ActionCreator.changeLoadOrderbook(isLoadOrderbook));
+    }
+  };
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Trades);
 

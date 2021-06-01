@@ -24,6 +24,8 @@ const rootReducer = (state = initialState, action) => {
       return {...state, orderbook: orderbookLoad, isLoadOrderbook: true};
     case ActionTypes.ADD_ORDERBOOK:
       return {...state, orderbook: action.payload};
+    case ActionTypes.CHANGE_LOAD_ORDERBOOK:
+      return {...state, isLoadOrderbook: action.payload};
     default:
       return {...state};
   }

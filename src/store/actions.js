@@ -53,4 +53,8 @@ export const ActionCreator = {
       bids: getSordetOrders(orderbook.bids, orderbookWS.bids),
     }
   }),
+  changeLoadOrderbook: (isLoadOrderbook) => ({
+    type: ActionTypes.CHANGE_LOAD_ORDERBOOK,
+    payload: isLoadOrderbook,
+  }),
 };
