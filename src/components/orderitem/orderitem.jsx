@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import {FixedPrice} from './../../const';
 
 export const Orderitem = ({orders, isBids, isAsks}) => {
-  const isBuy = isAsks ? `orderlist___value--green` : ``;
-  const isSale = isBids ? `orderlist___value--red` : ``;
+  const isBuy = isAsks ? `orderlist___value--red` : ``;
+  const isSale = isBids ? `orderlist___value--green` : ``;
 
   const getOrderitemJsx = () => {
     return orders.map((order, index) => {
