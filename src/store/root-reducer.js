@@ -23,11 +23,7 @@ const rootReducer = (state = initialState, action) => {
       };
       return {...state, orderbook: orderbookLoad, isLoadOrderbook: true};
     case ActionTypes.ADD_ORDERBOOK:
-      const orderbookAdd = {
-        asks: [...action.payload.asks, ...(state.orderbook.asks.slice(0, state.orderbook.asks.length - action.payload.asks.length))],
-        bids: [...action.payload.bids, ...(state.orderbook.bids.slice(0, state.orderbook.bids.length - action.payload.bids.length))],
-      };
-      return {...state, orderbook: orderbookAdd};
+      return {...state, orderbook: action.payload};
     default:
       return {...state};
   }
